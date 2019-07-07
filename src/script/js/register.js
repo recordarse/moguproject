@@ -1,8 +1,11 @@
 ;!function($){
 
    $(document).ready(function(){
-       $('pass-text-input').eq(0).validate({
-           
+       $('#TANGRAM__PSP_4__form').validate({
+           success:function(){
+               
+           }
+
        })
    })
 }(jQuery);
