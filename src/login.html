@@ -26,7 +26,7 @@
     <div class="main">
    <div class="right">
         <div class="login_mod_tab"> 
-            <div class="fl mod"> 
+            <div class="fl mod normal"> 
                 <a class="lo_mod tab_on" lo-mod="normal" href="javascript:;" title="普通登入">普通登录</a> 
             </div> 
             <div class="fl mod nopassword"> 
@@ -59,6 +59,13 @@
      <div class="mgj_footer_hostname">
             <span>©2019 Mogujie.com 杭州卷瓜网络有限公司</span>
         </div>
+     <div class="loadfooter"></div>
+     
+        <script src="script/thirdplugins/jquery.min.js"></script>
+        <script src="script/js/login.js"></script>
+        <script>   
+         $('.loadfooter').load('footer.html'); 
+        </script>
 </body>
 
 </html>
