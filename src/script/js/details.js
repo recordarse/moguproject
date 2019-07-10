@@ -4,7 +4,7 @@
 	//console.log(picid);
 	//将当前的id传给后端获取对应的数据
 	$.ajax({
-		url: 'http://localhost/moguproject/php/details.php',
+		url: 'http://10.31.158.34/moguproject/php/details.php',
 		data: {
 			sid: picid
 		},
