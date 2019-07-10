@@ -115,8 +115,15 @@
 	$('.goodslist').on('mouseover','li',function(){
 		$(this).css({
 			border:'1px solid #FF4466',
+			transition:'all .5s',
 		}).siblings().css({
 			border:'1px solid #ccc',
+		})
+	});
+	$('.goodslist').on('mouseout','li',function(){
+		$(this).css({
+			border:'1px solid #ccc',
+			transition:'all .4s',
 		})
 	})
 	// 懒加载
@@ -206,22 +213,22 @@
 }(jQuery);
 //搜索表单接口渲染
 // !function(){
-// 	function  mogu(data){
-// 		console.log(data.result);
-// 		let arr=data.result;
-// 		let str='';
-// 		for(let i=0;i<arr.length;i++){
-// 			str+='<p>'+arr[i]['0']+'</p>'
-// 		}
-// 		$().innerHTML=str;
-//    }
-// 	$('#top_nav_text').oninput=function(){
+// 	$('#top_nav_text').on('input',function(){
 // 		console.log(1);
+// 		function  jsonp18922(data){
+// 			console.log(data.result);
+// 			let arr=data.result;
+// 			let str='';
+// 			for(let i=0;i<arr.length;i++){
+// 				str+='<p>'+arr[i]['0']+'</p>'
+// 			}
+// 			$().innerHTML=str;
+// 	   }
 // 		var cScript=document.createElement('script');
-//         cScript.src='https://mce.mogu.com/jsonp/makeup/3?pid=18922&appPlat='+$('#top_nav_text').val()+'&callback=mogu&_=1562393404652'
+//         cScript.src='https://mce.mogu.com/jsonp/makeup/3?pid=18922&appPlat='+$('#top_nav_text').val()+'&callback=jsonp18922&_=1562393404652';
 // 		document.body.appendChild(cScript);	
 // 		$('.top-nav-tip').css('display','block');
-// 	}
+// 	})		
 // }(jQuery);
 
 //轮播图
@@ -368,8 +375,11 @@ if($.cookie('successname')){
 	$('#success').html($.cookie('successname')+"登录成功");
 }
 $('#exit').on('click',function(){
-	if(confirm('你确定要删除吗？')){
+	if(confirm('你确定要退出吗？')){
 	  $.cookie('successname', '', { expires: -1 });
+	  console.log($.cookie('cookienum'));
+	  $.cookie('cookienum', '', { expires: -1 });
+	  $.cookie('cookiesid', '', { expires: -1 });
 	  $('#success').html('登录');
 	}
 })

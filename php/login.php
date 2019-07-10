@@ -12,7 +12,7 @@ $conn->query('SET NAMES UTF8');
 
 if(isset($_GET['name']) && isset($_GET['pass'])&& isset($_GET['tel'])){
     $user=$_GET['name'];
-    $pass=$_GET['pass'];
+    $pass=sha1($_GET['pass']);
     $tel=$_GET['tel'];
     $result=$conn->query("select * from regtable where username='$user' and password='$pass' and tel='$tel'");
 

@@ -19,7 +19,7 @@
         //console.log($(this).val().length);
         if ($(this).val() != '') {
             //console.log($(this).val().length);
-            var $reg = /^[\u4e00-\u9fa5]+|[a-zA-Z]+$/;
+            var $reg = /^[\u4e00-\u9fa5]+|[a-zA-Z]+|[1-9]+$/;
             if ($reg.test($(this).val())) { //匹配成功
                 var $len = $(this).val().replace(/[\u4e00-\u9fa5]/g, 'bb').length;
                 if ($len <= 12) {

@@ -24,7 +24,7 @@ if(isset($_POST['name'])){
     $user=$_POST['username'];
     $pass=sha1($_POST['password']);
     $telnum=$_POST['tel'];
-    $conn->query("insert regtable values("'$user','$pass','$telnum'");
+    $conn->query("insert regtable values('$user','$pass','$telnum')");
     //设置跳转的地址
     header('location:http://10.31.158.34/moguproject/src/login.html');
 }
