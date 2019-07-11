@@ -46,7 +46,7 @@
             if(!d){
                 alert('用户名密码或手机号错误');
             }else{
-                location.href='mogu.html';
+                location.href='index.html';
                 // //登录成功，采用本地存储存储用户名。
      
                 // $.cookie('username','zhansan',{expires:7});

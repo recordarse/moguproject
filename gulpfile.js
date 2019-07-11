@@ -35,11 +35,11 @@ gulp.task('babeljs', () => {
         .pipe(gulp.dest('dist/script/js'));//输出
 });
 //压缩js
-gulp.task('uglifyjs', () => {
-    return gulp.src('src/script/js/*.js')//引入文件
-        .pipe(uglify())//执行压缩插件
-        .pipe(gulp.dest('dist/script/js'));//输出
-});
+// gulp.task('uglifyjs', () => {
+//     return gulp.src('src/script/js/*.js')//引入文件
+//         .pipe(uglify())//执行压缩插件
+//         .pipe(gulp.dest('dist/script/js'));//输出
+// });
 
 //压缩png图片*****
 gulp.task('uglifypng', () => {

@@ -3,7 +3,7 @@
     //渲染
     function goodslist(id, count) {
         $.ajax({
-            url: 'http://10.31.158.34/moguproject/php/piclist.php', //获取所有的接口数据
+            url: 'http://10.31.158.34/moguproject/php/piclist.php', 
             dataType: 'json'
         }).done(function (data) {
             //console.log(data);
@@ -43,15 +43,6 @@
         });
     }
     empty();
-    // if (getcookie('successname')) {
-    //     //console.log(1);
-    //     $('#successlogin').html(getcookie('successname'));
-    // }
-    // if(!getcookie('successname')){
-    //     $('#successlogin').html('登录');
-    //     $('.cart_empty').show();
-    //     $('#cartPage').hide();
-    // }
     function empty() {
         if (getcookie('cookiesid') && getcookie('cookienum')) {
             $('.cart_empty').hide(); //cookie存在，购物车有商品，隐藏盒子。
@@ -76,31 +67,40 @@
         } else {
             $('#s_all_h').prop('checked', false);
         }
-
     });
+    //
+    function price(){
+        let $numarr = getcookie('cookienum').split(',');
+        //console.log($numarr);
+        let $num = 0;
+        let $sum = 0;
+        for (let i = 0; i < $numarr.length; i++) {
+            $num += Number($numarr[i]);
+        }
+        $('.cart_paybar_info').find('.goodsNum').html(Number($num));
+        //计算总价
+        $('.cart_mitem:visible').each(function (index, element) {
+            $sum += parseInt($(element).find('.total').find('p').html());
+        })
+        $('#cartPaybar').find('.cart_money').html('￥' + $sum);
+        // $('#payBtn').css({
+        //     background:'url(https://s10.mogucdn.com/pic/150511/1blhwf_ie2tiobvhfrdkojrgezdambqhayde_360x900.png) no-repeat 0 -215px'
+        // });
+    }
+   
     //判断下方全选按钮 是否全选 计算总价和商品个数 
     $('#s_all_f').on('change', function () {
         $('.cart_mitem:visible').find(':checkbox').prop('checked', $(this).prop('checked'));
         $('#s_all_f').prop('checked', $(this).prop('checked'));
         if ($('#s_all_f').prop('checked')) {
             //计算共有多少商品   
-            let $numarr = getcookie('cookienum').split(',');
-            //console.log($numarr);
-            let $num = 0;
-            let $sum = 0;
-            for (let i = 0; i < $numarr.length; i++) {
-                $num += Number($numarr[i]);
-            }
-            $('.cart_paybar_info').find('.goodsNum').html(Number($num));
-            //计算总价
-            $('.cart_mitem:visible').each(function (index, element) {
-                //console.log($(element).find('.total').find('p').html());
-                $sum += parseInt($(element).find('.total').find('p').html());
-            })
-            $('#cartPaybar').find('.cart_money').html('￥' + $sum);
+           price();
         } else {
             $('.cart_paybar_info').find('.goodsNum').html(0);
             $('#cartPaybar').find('.cart_money').html('￥' + 0.0);
+            // $('#payBtn').css({
+            //     background:'url(https://s10.mogucdn.com/pic/150511/1blhwf_ie2tiobvhfrdkojrgezdambqhayde_360x900.png) no-repeat 0 -800px'
+            // });
         }
     })
     //判断是否取消全选
@@ -109,23 +109,23 @@
         if ($('.cart_mitem:visible').find('input:checkbox').length == $('.cart_mitem:visible').find('input:checked').length) {
             $('#s_all_f').prop('checked', true);
             //并将选中的商品数量和总价计算出来
-            //price();
+            price();
         } else {
             $('#s_all_f').prop('checked', false);
+           // console.log( $('.cart_thcheck:checked'));
             let $price = 0;
             let $shu = 0;
             $('.cart_thcheck:checked').each(function (index, element) {
-                // console.log(index);
-                $shu += $(element).parents('.cart_mitem').find('.num').find('.cart_num_input').val();
+                $shu += parseInt($(element).parents('.cart_mitem').find('.num').find('.cart_num_input').val());
                 $price += parseInt($(element).parents('.cart_mitem').find('.total').find('p').html());
             })
             $('.cart_paybar_info').find('.goodsNum').html($shu);
             $('#cartPaybar').find('.cart_money').html('￥' + $price);
-            // if($('.cart_mitem:visible').find('input:checkbox').prop('checked')){
-            // }
+            // $('#payBtn').css({
+            //     background:'url(https://s10.mogucdn.com/pic/150511/1blhwf_ie2tiobvhfrdkojrgezdambqhayde_360x900.png) no-repeat 0 -215px'
+            // });      
         }
     });
-
     function addcookie(key, value, day) {
         let date = new Date();
         date.setDate(date.getDate() + day);
@@ -141,7 +141,12 @@
         $(this).parents('.cart_mitem').find('.cart_num input').val($num);
         let $sprice = $(this).parents('.cart_mitem').find('.price').find('.cart_bold').html();
         $(this).parents('.cart_mitem').find('.total p').html(($num * $sprice).toFixed(2));
-        //price();
+        if($('#s_all_f').prop('checked')){
+            price();
+        }else if($(this).parents('.cart_mitem').find(':checkbox').prop('checked')){
+          // console.log( $(this).parents('li').next('li').find('p').html())
+            $('#cartPaybar').find('.cart_money').html('￥' +$(this).parents('li').next('li').find('p').html() );
+        }    
         setcookie($(this));
     });
     //也可进行数量的改变-- 并存入cookie
@@ -155,8 +160,21 @@
         $(this).parents('.cart_mitem').find('.cart_num input').val($num);
         let $sprice = $(this).parents('.cart_mitem').find('.price').find('.cart_bold').html();
         $(this).parents('.cart_mitem').find('.total p').html(($num * $sprice).toFixed(2));
+        if($('#s_all_f').prop('checked')){
+            price();
+        }else if($(this).parents('.cart_mitem').find(':checkbox').prop('checked')){
+            // console.log(1);
+            // console.log($(this));
+            $('#cartPaybar').find('.cart_money').html('￥' +$(this).parents('li').next('li').find('p').html() );
+            //console.log($(this).parents('li').next('li').find('p').html());
+        }                    
         setcookie($(this));
     });
+    // if(!$('.cart_mitem').find(':checked').prop('checked')){
+    //     console.log(1);
+    //     background:'url(https://s10.mogucdn.com/pic/150511/1blhwf_ie2tiobvhfrdkojrgezdambqhayde_360x900.png) no-repeat 0 -800px'
+
+    // }
     //直接输入改变数量
     $('.cart_num input').on('input', function () {
         var $reg = /^\d+$/g;
@@ -217,9 +235,10 @@
         dellist($(this).parents('.cart_mitem').find('.desc').find('img').attr('sid'), arrsid);
         //price();
     });
+    
     //删除全部商品
     $('.cart_paybar_vmbox a:first').on('click', function () {
-        cookietoarray(); //得到数组,上面的删除cookie需要。
+        cookietoarray(); 
         if (confirm('你确定要全部删除吗？')) {
             $('.cart_mitem:visible').each(function () {
                 if ($(this).find('input:checkbox').is(':checked')) { //复选框一定是选中的

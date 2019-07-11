@@ -1,5 +1,4 @@
-;
-! function () {
+;!function () {
 	//关于我们显示下拉菜单
 	$('.J-header-about-us').hover(function () {
 		$('.header-about-us-detail').css({
@@ -191,7 +190,7 @@
 		});
 	})
 	function auto() {
-		$num = 0;
+		var $num = 0;
 		timer = setInterval(function () {	
 			$num++;
 			//console.log($num);
@@ -212,24 +211,54 @@
 	}
 }(jQuery);
 //搜索表单接口渲染
-// !function(){
-// 	$('#top_nav_text').on('input',function(){
-// 		console.log(1);
-// 		function  jsonp18922(data){
-// 			console.log(data.result);
-// 			let arr=data.result;
-// 			let str='';
-// 			for(let i=0;i<arr.length;i++){
-// 				str+='<p>'+arr[i]['0']+'</p>'
-// 			}
-// 			$().innerHTML=str;
-// 	   }
-// 		var cScript=document.createElement('script');
-//         cScript.src='https://mce.mogu.com/jsonp/makeup/3?pid=18922&appPlat='+$('#top_nav_text').val()+'&callback=jsonp18922&_=1562393404652';
-// 		document.body.appendChild(cScript);	
-// 		$('.top-nav-tip').css('display','block');
-// 	})		
-// }(jQuery);
+!function(){
+	//console.log($('#top_nav_text'));
+	// $('.normal-search-content').on('mouseover',function(){
+	// 	$('.top-nav-tip').css({
+	// 		display:'none',		
+	// 	})
+	// })
+	$('#top_nav_text').on('blur',function(){
+		$('.top-nav-tip').css({
+				display:'none',		
+			 	})
+	})
+	$('#top_nav_text').on('input',function(){
+		       //console.log(1);
+				var te = $('#top_nav_text').val();
+			  $.ajax({
+				  url:'https://suggest.taobao.com/sug?code=utf-8&q='+te+'&_ksTS=1561171726361_422&&k=1&area=c2c&bucketid=7',
+				 
+				  data:{wd:te},
+				  dataType:'jsonp',
+				  success:function(data){
+					 // console.log(data.result);
+					  let arr=data.result;
+					  let str='';
+					  for(let i=0;i<arr.length;i++){
+						  str+='<p style="width:492px;padding-left:20px;font-size:12px;height:20px;margin-bottom:10px">'+arr[i]['0']+'</p>'
+					  }
+					  //console.log(0);
+					  $('.word-box').html(str);
+					  //console.log(0);
+					  $('.top-nav-tip').css({
+						  display:'block',
+						  zIndex:1
+					  })
+					  $('.word-box').find('p').hover(function(){
+							$(this).css({
+								backgroundColor:'#ff4466'
+							})
+						},function(){
+							$(this).css({
+							  backgroundColor:'#fff'
+						  })
+						})
+				  }
+			  })	 
+			})
+}(jQuery);
+
 
 //轮播图
 !function($){
