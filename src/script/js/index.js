@@ -47,6 +47,7 @@
 			borderLeft:'2px solid transparent',
 		})
 	});
+
 	// 滚动条到今日必抢上方出现头部悬浮
 	$(window).on('scroll', function () {
 		//console.log($(window).scrollTop());
@@ -212,12 +213,6 @@
 }(jQuery);
 //搜索表单接口渲染
 !function(){
-	//console.log($('#top_nav_text'));
-	// $('.normal-search-content').on('mouseover',function(){
-	// 	$('.top-nav-tip').css({
-	// 		display:'none',		
-	// 	})
-	// })
 	$('#top_nav_text').on('blur',function(){
 		$('.top-nav-tip').css({
 				display:'none',		
@@ -412,7 +407,6 @@ $('#exit').on('click',function(){
 	  $('#success').html('登录');
 	}
 })
-// console.log($.cookie('successname'));
-// console.log($('.J_sitenav').find('.header-user-info').find('a'));
+
 
 
